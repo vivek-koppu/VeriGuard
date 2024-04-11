@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  marquee {
+    font-size: xx-large;
+    color: greenyellow;
+  }
+
+  .carousel-container {
+    position: relative;
+  }
+
+  .carousel-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .marquee {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #40E0D0;
+    font-size: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 10s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  p {
+    text-align: justify;
+    font-size: 20px;
+  }
+</style>
+<div class="container">
+  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="5000">
+        <div class="carousel-container">
+          <img src="{% static 'images/cybercrime.jpg' %}" class="d-block w-100" alt="cybercrime" height="620px">
+          <p class="marquee">Welcome to VeriGuard</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <div class="carousel-container">
+          <img src="{% static 'images/phishing.jpg' %}" class="d-block w-100" alt="phishing" height="620px">
+          <p class="marquee">Welcome to VeriGuard</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <div class="carousel-container">
+          <img src="{% static 'images/profile.jpg' %}" class="d-block w-100" alt="profile" height="620px">
+          <p class="marquee">Welcome to VeriGuard</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <div class="carousel-container">
+          <img src="{% static 'images/Aadhaar.jpg' %}" class="d-block w-100" alt="Aadhaar" height="620px">
+          <p class="marquee">Welcome to VeriGuard</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+<hr>
+<div class="container">
+  <h2>About us</h2>
+  <p>
+    The Authentic Scan Suite is a comprehensive solution tailored to address the escalating concerns surrounding digital
+    identity verification. Consisting of robust features including URL validation, fake profile detection, and Aadhaar
+    verification, this suite offers a multifaceted approach to bolster the trustworthiness and security of online
+    interactions. Authentic Scan Suite meticulously evaluates URLs, swiftly identifying and neutralizing potential
+    threats such as phishing attacks, thereby safeguarding users against malicious online activities. Authentic Scan
+    Suite ensures reliable identity authentication processes, enhancing trust and enabling secure transactions in the
+    Indian digital landscape.
+  </p>
+</div>
+<hr>
+<div class="container">
+  <h2>Contact us</h2>
+  <marquee>
+    To open Instagram, WhatsApp, and LinkedIn, you can click on the text.
+  </marquee>
+  {% include 'contact.html' %}
+</div>
+<hr>
+<div class="container">
+  <h2>&copy; All rights reserved</h2>
+</div>
+{% endblock %}

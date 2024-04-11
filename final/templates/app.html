@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  marquee {
+    font-size: xx-large;
+    color: greenyellow;
+  }
+
+  marquee p {
+    font-size: xx-large;
+    color: greenyellow;
+  }
+
+  p {
+    text-align: justify;
+    font-size: 20px;
+  }
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Aadhaar Number Verification</h1>
+      <br>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Enter the Aadhaar Number</span>
+          {% if input %}
+          <input id="aadhaarVal" name="aadhaarVal" type="text" value='{{input}}' class="form-control"
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          {% else %}
+          <input id="aadhaarVal" name="aadhaarVal" type="text" placeholder='{{input}}' class="form-control"
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          {% endif %}
+        </div>
+        <button type="button" class="btn btn-outline-success btn-lg" onclick="storeValue()">Submit</button>
+      </form>
+      <br>
+      <h1 id="result"></h1>
+    </div>
+    <div class="col-md-6">
+      <marquee>
+        Just a gentle reminder, please make sure to select only CSV files or Excel files when uploading. Thank you!
+        <p>
+          Please enter the column name containing the Aadhaar numbers. Thank you for your cooperation!
+        </p>
+      </marquee>
+      <h1>Aadhaar Number Validation</h1>
+      <br>
+      <form method="post" enctype="multipart/form-data" action="{% url 'predict4' %}">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Enter the column name</span>
+          <input name="aVal" type="text" placeholder="Enter the column name" required class="form-control"
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">Upload the File</span>
+          <input name="file" type="file" accept=".xlsx, .xls, .csv" required class="form-control"
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <button type="submit" class="btn btn-outline-success btn-lg">Upload</button>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="container">
+  <h2>About us</h2>
+  <p>
+    This page is designed to determine the validity of a given Aadhaar number. Users are
+    required to input the Aadhaar number into the provided input box and then click the "Submit" button. Upon
+    submission, the output will be displayed as "Valid" if the given number is deemed valid; otherwise, it will be
+    labeled as "Invalid." Additionally, on the right side of the page, users have the option to detect the validity of a
+    bulk of Aadhaar numbers by uploading a file. Along with the file, users must specify the column name containing the
+    Aadhaar numbers. Upon uploading, an output file will be generated and automatically downloaded. In the output file,
+    a new column will be added, and the validation status for each Aadhaar number will be written in that column.
+  </p>
+</div>
+<hr>
+<div class="container">
+  <h2>Contact us</h2>
+  <marquee>
+    To open Instagram, WhatsApp, and LinkedIn, you can click on the text.
+  </marquee>
+  {% include 'contact.html' %}
+</div>
+<hr>
+<div class="container">
+  <h2>&copy; All rights reserved</h2>
+</div>
+
+<script>
+  var d = [
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
+    [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
+    [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
+    [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
+    [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
+    [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
+    [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
+    [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
+    [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+  ];
+  var p = [
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
+    [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
+    [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
+    [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
+    [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
+    [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
+    [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
+  ];
+  var inv = [0, 4, 3, 2, 1, 5, 6, 7, 8, 9];
+
+  function invArray(array) {
+    if (Object.prototype.toString.call(array) == "[object Number]") {
+      array = String(array);
+      console.log(array, "!!!")
+    }
+    if (Object.prototype.toString.call(array) == "[object String]") {
+      array = array.split("").map(Number);
+      console.log(array, "!!!")
+
+    }
+    return array.reverse();
+  }
+
+  function generate(array) {
+
+    var c = 0;
+    var invertedArray = array.reverse();
+
+    for (var i = 0; i < invertedArray.length; i++) {
+
+      c = d[c][p[((i + 1) % 8)][invertedArray[i]]];
+
+    }
+    return inv[c];
+  }
+
+  function validate(array) {
+
+    var c = 0;
+    var invertedArray = invArray(array);
+
+    for (var i = 0; i < invertedArray.length; i++) {
+      c = d[c][p[(i % 8)][invertedArray[i]]];
+    }
+
+    return (c === 0);
+  }
+
+  function validateAadhaar() {
+
+    var aadhaarString = document.getElementById("aadhaarVal").value;
+
+    if (aadhaarString.trim() === '') {
+      alert('Please Enter Aadhaar Number in the input field!');
+      return;
+    }
+
+    var aadhaarString = aadhaarString.replace(/\s/g, '')
+
+    var aadhaarArray = aadhaarString.split('');
+
+    var toCheckChecksum = aadhaarArray.pop();
+
+    if (aadhaarString.length != 12) {
+      return 'Aadhaar numbers should be 12 digit in length';
+    }
+    else if (aadhaarString.match(/[^$,.\d]/)) {
+      return 'Once check the Aadhaar Number';
+    }
+
+
+    else if (generate(aadhaarArray) == toCheckChecksum) {
+      return 'The given Aadhaar Number is valid ';
+    }
+    else {
+      return 'The given Aadhaar Number is not valid';
+    }
+  };
+
+  function storeValue() {
+    var result = validateAadhaar();
+    if (result != undefined) {
+      document.getElementById("result").innerHTML = result;
+    }
+  }
+
+</script>
+
+{% endblock %}

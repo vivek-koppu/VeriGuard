@@ -1,0 +1,108 @@
+<style>
+    .text{
+        text-decoration: none;
+        font-size: xx-large;
+        color: #FFFFFF;
+    }
+
+    .social-icon {
+        font-size: 24px;
+        margin-right: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #333;
+        margin: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        animation: pulse 1s infinite;
+    }
+
+    .social-icon:hover {
+        transform: scale(1.2);
+        animation: none;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .social-icon.instagram {
+        background-color: #bc2a8d;
+    }
+
+    .social-icon.whatsapp {
+        background-color: #25d366;
+        position: relative;
+    }
+
+    .social-icon.gmail {
+        background-color: #ea4335;
+    }
+
+    .social-icon.phone {
+        background-color: #4caf50;
+    }
+
+    .social-icon.linkedin {
+        background-color: #0077b5;
+    }
+
+    .social-icon.telegram {
+        background-color: #0088cc;
+    }
+</style>
+<div class="container social-icons">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="d-flex align-items-center mt-3">
+                <div class="social-icon instagram">I</div>
+                <p class="d-flex align-items-center mt-3">
+                    <a href="https://www.instagram.com/vivekkoppu" target="_blank" class="text">Instagram</a>
+                </p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+                <div class="social-icon whatsapp">W</div>
+                <p class="d-flex align-items-center mt-3">
+                    <a href="https://api.whatsapp.com/send?phone=9121996551" target="_blank" class="text">Whatsapp</a>
+                </p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+                <div class="social-icon telegram">T</div>
+                <p class="d-flex align-items-center mt-3 text">9121996551</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex align-items-center mt-3">
+                <div class="social-icon gmail">G</div>
+                <p class="d-flex align-items-center mt-3 text">vivek.koppu02@gmail.com</p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+                <div class="social-icon phone">P</div>
+                <p class="d-flex align-items-center mt-3 text">9121996551</p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+                <div class="social-icon linkedin">L</div>
+                <p class="d-flex align-items-center mt-3">
+                    <a href="https://www.linkedin.com/in/vivek-koppu-20aa9823a/" target="_blank" class="text">Linkedin</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

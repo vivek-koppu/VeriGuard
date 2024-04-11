@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    marquee {
+        font-size: xx-large;
+        color: greenyellow;
+    }
+
+    p {
+        text-align: justify;
+        font-size: 20px;
+    }
+
+    h3 {
+        text-align: center;
+        font-size: x-large;
+    }
+
+    h4{
+        font-size: x-large;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 style="text-align: center;">Fake URL Detection</h1>
+            <br>
+            <form method="post" enctype="multipart/form-data" action="predictURL">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Enter the URL</span>
+                    {% if input %}
+                    <input name="urlVal" type="text" value={{input}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="urlVal" type="text" placeholder={{input}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <input type="submit" class="btn btn-outline-success btn-lg" value="Submit">
+            </form>
+            <br>
+            {% if output and output == 'Real' %}
+            <h1>
+                The given URL is {{ output }} and you can click the below <span>&#128071;</span> link to open.
+                <a href="{{ input }}" target="_blank">{{ input }}</a>
+            </h1>
+            {% else %}
+            <h1>
+                {{ output }}
+            </h1>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <marquee>
+                Just a heads up, please select only image files when uploading. Thanks!
+            </marquee>
+            <h1 style="text-align: center;">QR Code Detection</h1>
+            <br>
+            <form method="post" enctype="multipart/form-data" action="predictQR">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Upload the QR Code Image</span>
+                    <input name="qrVal" type="file" accept="image/*" required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <input type="submit" class="btn btn-outline-success btn-lg" value="Submit">
+            </form>
+            <br>
+            {% if out and out == 'Real' %}
+            <h1>
+                The URL in the QR Code is {{ out }} and you can click the below <span>&#128071;</span> link to open.
+                <a href="{{ inp }}" target="_blank">{{ inp }}</a>
+            </h1>
+            {% else %}
+            <h1>
+                {{ out }}
+            </h1>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container">
+    <h2>About us</h2>
+    <h3>This page consists of two parts</h3>
+    <h4>Detecting Real or Fake URL: </h4>
+    <p>
+        In this part, the system checks whether the given URL is legitimate or fake. If the URL is determined to be
+        real, the link associated with it is displayed. Users can click on the link to open it in their browser and
+        access the corresponding web page.
+    </p>
+    <h4>QR Code Verification: </h4>
+    <p>
+        In this section, the system verifies whether the provided QR code is genuine or counterfeit. If the QR code is
+        confirmed to be authentic, the link embedded within the QR code is displayed. Users can click on the link to
+        open it in a new browser tab and access the associated content.
+    </p>
+
+</div>
+<hr>
+<div class="container">
+    <h2>Contact us</h2>
+    <marquee>
+        To open Instagram, WhatsApp, and LinkedIn, you can click on the text.
+    </marquee>
+    {% include 'contact.html' %}
+</div>
+<hr>
+<div class="container">
+    <h2>&copy; All rights reserved</h2>
+</div>
+{% endblock %}

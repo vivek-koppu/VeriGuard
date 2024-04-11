@@ -1,0 +1,31 @@
+<nav class="menu-container">
+    <input type="checkbox" aria-label="Toggle menu" />
+    <span></span>
+    <span></span>
+    <span></span>
+    <label class="menu-logo">VeriGuard</label>
+    <div class="menu">
+      <ul>
+        <li>
+            <a href="{% url 'home' %}">
+                Nexus
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'index' %}">
+                Web Link Sanitization
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'main' %}">
+                Bogus Profile Identification
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'app' %}">
+                Unique Identification Validation
+            </a>
+        </li>
+      </ul>
+    </div>
+  </nav>

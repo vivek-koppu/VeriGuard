@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    marquee {
+        font-size: xx-large;
+        color: greenyellow;
+    }
+
+    .container1 {
+        text-align: center;
+        margin: 100px;
+        padding: 80px;
+        border: none;
+    }
+
+    #inputContainer {
+        font-size: xx-large;
+        color: orange;
+    }
+
+    #outputContainer {
+        font-size: xx-large;
+        color: orange;
+    }
+
+    p {
+        text-align: justify;
+        font-size: 20px;
+    }
+</style>
+<div class="container">
+    <h1 style="text-align: center;">Bogus Profile Identification</h1>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            {% if output and output == 'Real' %}
+            <h1>
+                The given URL is {{ output }} and you can click the below <span>&#128071;</span> link to open.
+                <a href="{{ input1 }}" target="_blank">{{ input1 }}</a>
+            </h1>
+            {% else %}
+            <h1>
+                {{ output }}
+            </h1>
+            {% endif %}
+            <br>
+            <form method="post" enctype="multipart/form-data" action="predictfake">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Enter Profile URL</span>
+                    {% if input1 %}
+                    <input name="purlVal" type="text" value={{input1}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="purlVal" type="text" placeholder={{input1}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Is profile picture available
+                        (Yes/No)</span>
+                    {% if input2 %}
+                    <input name="ppicVal" type="text" value={{input2}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="ppicVal" type="text" placeholder={{input2}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Enter the length of the name</span>
+                    {% if input3 %}
+                    <input name="lnameVal" type="text" value={{input3}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="lnameVal" type="text" placeholder={{input3}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Enter the length of the
+                        description</span>
+                    {% if input4 %}
+                    <input name="ldescVal" type="text" value={{input4}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="ldescVal" type="text" placeholder={{input4}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Is external url available in
+                        description
+                        (Yes/No)</span>
+                    {% if input5 %}
+                    <input name="eurlVal" type="text" value={{input5}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="eurlVal" type="text" placeholder={{input5}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Is the profile private (Yes/No)</span>
+                    {% if input6 %}
+                    <input name="ppriVal" type="text" value={{input6}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="ppriVal" type="text" placeholder={{input6}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Enter the count of posts</span>
+                    {% if input7 %}
+                    <input name="cpostVal" type="text" value={{input7}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="cpostVal" type="text" placeholder={{input7}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Enter the count of followers</span>
+                    {% if input8 %}
+                    <input name="cfolVal" type="text" value={{input8}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="cfolVal" type="text" placeholder={{input8}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Enter the count of following</span>
+                    {% if input9 %}
+                    <input name="cfolloVal" type="text" value={{input9}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% else %}
+                    <input name="cfolloVal" type="text" placeholder={{input9}} required class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    {% endif %}
+                </div>
+                <input type="submit" class="btn btn-outline-success btn-lg" value="Submit">
+            </form>
+        </div>
+        <div class="col-md-6">
+            <marquee>
+                    To find the length of the name or description enter the text in the below
+                    <span>&#128071;</span>
+                    input box and click on the calculate button to find the length....
+            </marquee>
+            <div class="container1">
+                <input name="cfolloVal" type="text" id="textInput" placeholder="Enter your text here"
+                    class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                    onkeypress="if(event.keyCode==13){calculateLength();return false;}">
+                <br>
+                <button class="btn btn-outline-success btn-lg" onclick="calculateLength()">Calculate</button>
+                <br><br>
+                <div id="inputContainer"></div>
+                <br><br>
+                <div id="outputContainer"></div>
+            </div>
+            <script>
+                function calculateLength() {
+                    var inputText = document.getElementById("textInput").value;
+                    if (inputText.trim() === '') {
+                        alert('Please Enter the text in the input box to find the length!');
+                        return;
+                    }
+                    var length = inputText.length;
+                    document.getElementById("inputContainer").innerHTML = "Entered text: " + inputText;
+                    document.getElementById("outputContainer").innerHTML = "Length of text: " + length;
+                }
+            </script>
+        </div>
+    </div>
+</div>
+</div>
+<hr>
+<div class="container">
+    <h2>About us</h2>
+    <p>
+        This page is utilized to discern whether a profile is genuine or counterfeit. Users are required to furnish
+        details about the profile, such as the profile link, name length, description length, and whether the profile is
+        private. All fields are mandatory. To enhance user-friendliness, we have included functionality to determine the
+        length of the name and description on the right side of the page. Here, users can input text into the provided
+        input box to ascertain the length. Upon submission of all details, if the profile is deemed genuine, the profile
+        link will be displayed on the screen; otherwise, it will be labeled as fake.
+    </p>
+</div>
+<hr>
+<div class="container">
+    <h2>Contact us</h2>
+    <marquee>
+        To open Instagram, WhatsApp, and LinkedIn, you can click on the text.
+    </marquee>
+    {% include 'contact.html' %}
+</div>
+<hr>
+<div class="container">
+    <h2>&copy; All rights reserved</h2>
+</div>
+{% endblock %}
