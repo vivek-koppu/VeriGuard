@@ -1,0 +1,13 @@
+Django
+pickle
+urllib.parse
+requests
+validators
+pandas
+pyzbar
+PIL
+warnings
+os
+xgboost
+nltk
+scikit-learn
